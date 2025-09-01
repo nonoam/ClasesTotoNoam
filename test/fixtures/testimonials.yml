@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tutor: one
+  student_name: MyString
+  content: MyText
+  rating: 1
+  date: 2025-09-01
+
+two:
+  tutor: two
+  student_name: MyString
+  content: MyText
+  rating: 1
+  date: 2025-09-01

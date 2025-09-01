@@ -1,0 +1,105 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title animate-fade-in">
+        Aprende con los Mejores Tutores
+      </h1>
+      <p class="hero-subtitle animate-slide-up">
+        Clases particulares de Cálculo, Programación y Excel
+      </p>
+      <div class="hero-actions animate-scale">
+        <%= link_to "Ver Horarios Disponibles", schedules_availability_path, 
+            class: "btn btn-primary btn-lg" %>
+        <%= link_to "Conoce a Nuestros Tutores", experience_path, 
+            class: "btn btn-outline btn-lg" %>
+      </div>
+    </div>
+    <div class="hero-image">
+      <%= image_tag "hero-illustration.svg", alt: "Tutoring illustration" %>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">¿Por qué elegirnos?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Experiencia Comprobada</h3>
+        <p>Tutores con años de experiencia en docencia universitaria</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Clases Personalizadas</h3>
+        <p>Adaptamos el contenido a tu nivel y objetivos específicos</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Material de Apoyo</h3>
+        <p>Resúmenes y apuntes personalizados incluidos en cada clase</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Precios Justos</h3>
+        <p>Opciones individuales y grupales para todos los presupuestos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="subjects">
+  <div class="container">
+    <h2 class="section-title">Nuestras Materias</h2>
+    <div class="subjects-grid">
+      <% @featured_subjects.each do |subject| %>
+        <div class="subject-card" data-turbo-frame="subject-<%= subject.id %>">
+          <div class="subject-header">
+            <h3><%= subject.name %></h3>
+            <span class="badge badge-<%= subject.level.downcase %>">
+              <%= subject.level %>
+            </span>
+          </div>
+          <p><%= subject.description %></p>
+          <%= link_to "Ver horarios", schedules_path(subject_id: subject.id), 
+              class: "btn btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <h2 class="section-title">Lo que dicen nuestros estudiantes</h2>
+    <div class="testimonials-slider">
+      <% @recent_testimonials.each do |testimonial| %>
+        <div class="testimonial-card">
+          <div class="stars">
+            <% testimonial.rating.times do %>
+              <span class="star">⭐</span>
+            <% end %>
+          </div>
+          <blockquote>
+            "<%= testimonial.content %>"
+          </blockquote>
+          <cite>
+            - <%= testimonial.student_name %>
+            <span class="testimonial-date">
+              <%= testimonial.created_at.strftime("%B %Y") %>
+            </span>
+          </cite>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>¿Listo para empezar?</h2>
+    <p>Agenda tu primera clase hoy mismo</p>
+    <%= link_to "Reservar Ahora", new_booking_path, 
+        class: "btn btn-primary btn-lg pulse" %>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tutor: one
+  start_time: 2025-09-01 15:59:15
+  end_time: 2025-09-01 15:59:15
+  available: false
+  recurring_pattern: MyString
+
+two:
+  tutor: two
+  start_time: 2025-09-01 15:59:15
+  end_time: 2025-09-01 15:59:15
+  available: false
+  recurring_pattern: MyString
