@@ -97,15 +97,15 @@
                        class="{% if request.resolver_match.url_name == 'clases' %}active{% endif %}"
                        aria-label="Gestionar clases">
                         <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
-                        <span>Clases</span>
+                        <span>Materias</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'core:estudiantes' %}" 
                        class="{% if request.resolver_match.url_name == 'estudiantes' %}active{% endif %}"
-                       aria-label="Gestionar estudiantes">
+                       aria-label="Mostrar metodología">
                         <i class="fas fa-users" aria-hidden="true"></i>
-                        <span>Estudiantes</span>
+                        <span>Metodología</span>
                     </a>
                 </li>
                 <li>
@@ -113,7 +113,7 @@
                        class="{% if request.resolver_match.url_name == 'horarios' %}active{% endif %}"
                        aria-label="Ver horarios y calendario">
                         <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                        <span>Horarios</span>
+                        <span>Reserva tu horario</span>
                     </a>
                 </li>
                 <li>
@@ -122,30 +122,6 @@
                        aria-label="Gestionar materiales educativos">
                         <i class="fas fa-book" aria-hidden="true"></i>
                         <span>Materiales</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:evaluaciones' %}" 
-                       class="{% if request.resolver_match.url_name == 'evaluaciones' %}active{% endif %}"
-                       aria-label="Crear y gestionar evaluaciones">
-                        <i class="fas fa-clipboard-check" aria-hidden="true"></i>
-                        <span>Evaluaciones</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:reportes' %}" 
-                       class="{% if request.resolver_match.url_name == 'reportes' %}active{% endif %}"
-                       aria-label="Ver reportes y estadísticas">
-                        <i class="fas fa-chart-bar" aria-hidden="true"></i>
-                        <span>Reportes</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:configuracion' %}" 
-                       class="{% if request.resolver_match.url_name == 'configuracion' %}active{% endif %}"
-                       aria-label="Configuración del sistema">
-                        <i class="fas fa-cog" aria-hidden="true"></i>
-                        <span>Configuración</span>
                     </a>
                 </li>
             </ul>
