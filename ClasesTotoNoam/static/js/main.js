@@ -456,3 +456,614 @@ window.addEventListener('load', function() {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Detectar página actual y ejecutar funciones específicas
+    const currentPage = document.body.dataset.page || getCurrentPageFromURL();
+    
+    switch(currentPage) {
+        case 'horarios':
+            initHorariosPage();
+            break;
+        case 'metodologia':
+            initMetodologiaPage();
+            break;
+        case 'clases':
+            initClasesPage();
+            break;
+        case 'materiales':
+            initMaterialesPage();
+            break;
+    }
+});
+
+// Función para obtener página actual desde URL
+function getCurrentPageFromURL() {
+    const path = window.location.pathname;
+    if (path.includes('horarios')) return 'horarios';
+    if (path.includes('metodologia')) return 'metodologia';
+    if (path.includes('clases')) return 'clases';
+    if (path.includes('materiales')) return 'materiales';
+    return 'home';
+}
+
+// ========================================
+// PÁGINA DE HORARIOS
+// ========================================
+function initHorariosPage() {
+    console.log('Inicializando página de horarios');
+    
+    // Animaciones de reveal para cards de profesores
+    initProfessorsReveal();
+    
+    // Animaciones del timeline de proceso
+    initProcessTimeline();
+    
+    // Efectos de hover en slots de calendario
+    initCalendarSlots();
+    
+    // Contador animado para estadísticas de profesores
+    initProfessorStats();
+}
+
+function initProfessorsReveal() {
+    const professorCards = document.querySelectorAll('.professor-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.opacity = '1';
+                }, index * 200);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    professorCards.forEach(card => {
+        card.style.transform = 'translateY(50px)';
+        card.style.opacity = '0';
+        card.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(card);
+    });
+}
+
+function initProcessTimeline() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    timelineItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-30px)';
+        item.style.transition = 'all 0.6s ease';
+        
+        setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
+        }, (index + 1) * 300);
+    });
+}
+
+function initCalendarSlots() {
+    const slots = document.querySelectorAll('.day-slot');
+    
+    slots.forEach(slot => {
+        slot.addEventListener('mouseenter', function() {
+            if (this.classList.contains('available')) {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 8px 25px rgba(81, 207, 102, 0.3)';
+            }
+        });
+        
+        slot.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'none';
+        });
+    });
+}
+
+function initProfessorStats() {
+    const statNumbers = document.querySelectorAll('.professor-stats .stat-number');
+    
+    const animateNumbers = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const finalValue = target.textContent;
+                const numericValue = parseInt(finalValue);
+                
+                if (!isNaN(numericValue)) {
+                    animateNumber(target, 0, numericValue, 1500);
+                }
+                
+                observer.unobserve(target);
+            }
+        });
+    };
+    
+    const observer = new IntersectionObserver(animateNumbers, { threshold: 0.5 });
+    statNumbers.forEach(stat => observer.observe(stat));
+}
+
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    const suffix = element.textContent.replace(/[0-9]/g, '');
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(start + (end - start) * easeOutCubic(progress));
+        
+        element.textContent = current + suffix;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+}
+
+// ========================================
+// PÁGINA DE METODOLOGÍA
+// ========================================
+function initMetodologiaPage() {
+    console.log('Inicializando página de metodología');
+    
+    // Animaciones del diagrama metodológico
+    initMethodologyDiagram();
+    
+    // Animaciones de pricing cards
+    initPricingCards();
+    
+    // Timeline de estructura de clases
+    initClassStructureTimeline();
+    
+    // Preview del documento de resumen
+    initSummaryPreview();
+}
+
+function initMethodologyDiagram() {
+    const diagramElements = document.querySelectorAll('.diagram-element');
+    const centerElement = document.querySelector('.diagram-center');
+    
+    // Animar entrada de elementos del diagrama
+    diagramElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = `scale(0.5) ${element.style.transform}`;
+        
+        setTimeout(() => {
+            element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            element.style.opacity = '1';
+            element.style.transform = element.style.transform.replace('scale(0.5)', 'scale(1)');
+        }, index * 200);
+    });
+    
+    // Efectos de hover en elementos del diagrama
+    diagramElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transform = this.style.transform.replace('scale(1)', 'scale(1.1)');
+            centerElement.style.transform = 'translate(-50%, -50%) scale(1.1)';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = this.style.transform.replace('scale(1.1)', 'scale(1)');
+            centerElement.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
+}
+
+function initPricingCards() {
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.transform = 'scale(1)';
+                    entry.target.style.opacity = '1';
+                }, index * 150);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    pricingCards.forEach(card => observer.observe(card));
+}
+
+function initClassStructureTimeline() {
+    const steps = document.querySelectorAll('.step-item');
+    const progressFill = document.querySelector('.progress-fill');
+    
+    if (progressFill) {
+        // Iniciar animación de la barra de progreso cuando sea visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'progress-fill 4s ease-in-out infinite';
+                }
+            });
+        });
+        
+        observer.observe(progressFill);
+    }
+    
+    // Animaciones de entrada para los pasos
+    steps.forEach((step, index) => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(step);
+    });
+}
+
+function initSummaryPreview() {
+    const previewDoc = document.querySelector('.preview-document');
+    
+    if (previewDoc) {
+        // Efecto de escritura en las líneas de preview
+        const previewLines = document.querySelectorAll('.preview-line');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    previewLines.forEach((line, index) => {
+                        setTimeout(() => {
+                            line.style.animation = 'preview-shimmer 2s ease-in-out infinite';
+                        }, index * 200);
+                    });
+                }
+            });
+        });
+        
+        observer.observe(previewDoc);
+    }
+}
+
+// ========================================
+// PÁGINA DE CLASES
+// ========================================
+function initClasesPage() {
+    console.log('Inicializando página de clases');
+    
+    // Animaciones de reveal para subject cards
+    initSubjectCardsReveal();
+    
+    // Efectos de hover en iconos tecnológicos
+    initTechIcons();
+    
+    // Animaciones de learning paths
+    initLearningPaths();
+    
+    // Efectos de las skill tags
+    initSkillTags();
+}
+
+function initSubjectCardsReveal() {
+    const subjectCards = document.querySelectorAll('.subject-card[data-reveal="fade-up"]');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = parseInt(entry.target.dataset.delay) || 0;
+                setTimeout(() => {
+                    entry.target.style.animation = 'reveal-fade-up 0.8s ease-out forwards';
+                }, delay);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    subjectCards.forEach(card => observer.observe(card));
+}
+
+function initTechIcons() {
+    const techIcons = document.querySelectorAll('.tech-icon');
+    
+    techIcons.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            // Pausar animación y amplificar efecto
+            this.style.animationPlayState = 'paused';
+            this.style.transform += ' scale(1.3)';
+            this.style.zIndex = '10';
+        });
+        
+        icon.addEventListener('mouseleave', function() {
+            // Reanudar animación y restaurar escala
+            this.style.animationPlayState = 'running';
+            this.style.transform = this.style.transform.replace(' scale(1.3)', '');
+            this.style.zIndex = '1';
+        });
+    });
+}
+
+function initLearningPaths() {
+    const pathSteps = document.querySelectorAll('.learning-path .step');
+    
+    pathSteps.forEach(step => {
+        step.addEventListener('mouseenter', function() {
+            // Efecto dominó - animar pasos siguientes
+            const nextSteps = this.parentElement.querySelectorAll('.step');
+            const currentIndex = Array.from(nextSteps).indexOf(this);
+            
+            nextSteps.forEach((nextStep, index) => {
+                if (index > currentIndex) {
+                    setTimeout(() => {
+                        nextStep.style.transform = 'translateX(15px) scale(1.05)';
+                        setTimeout(() => {
+                            nextStep.style.transform = 'translateX(10px) scale(1)';
+                        }, 200);
+                    }, (index - currentIndex) * 100);
+                }
+            });
+        });
+        
+        step.addEventListener('mouseleave', function() {
+            const allSteps = this.parentElement.querySelectorAll('.step');
+            allSteps.forEach(step => {
+                step.style.transform = 'translateX(10px) scale(1)';
+            });
+        });
+    });
+}
+
+function initSkillTags() {
+    const skillTags = document.querySelectorAll('.skill-tag');
+    
+    skillTags.forEach(tag => {
+        tag.addEventListener('mouseenter', function() {
+            // Efecto de ondas en tags cercanos
+            const allTags = this.parentElement.querySelectorAll('.skill-tag');
+            const currentIndex = Array.from(allTags).indexOf(this);
+            
+            allTags.forEach((otherTag, index) => {
+                const distance = Math.abs(index - currentIndex);
+                if (distance <= 2 && distance > 0) {
+                    setTimeout(() => {
+                        otherTag.style.transform = 'translateY(-5px) scale(1.05)';
+                        setTimeout(() => {
+                            otherTag.style.transform = 'translateY(0) scale(1)';
+                        }, 300);
+                    }, distance * 100);
+                }
+            });
+        });
+    });
+}
+
+// ========================================
+// PÁGINA DE MATERIALES
+// ========================================
+function initMaterialesPage() {
+    console.log('Inicializando página de materiales');
+    
+    // Animaciones de la preview de materiales
+    initMaterialsPreview();
+    
+    // Efectos en cards de métodos de entrega
+    initDeliveryMethods();
+    
+    // Animaciones de zoom-in para tipos de materiales
+    initMaterialTypesReveal();
+    
+    // Efectos en el código preview
+    initCodePreview();
+}
+
+function initMaterialsPreview() {
+    const folderStructure = document.querySelector('.folder-structure');
+    const floatingFiles = document.querySelectorAll('.file-card');
+    
+    if (folderStructure) {
+        // Expandir/contraer subfolders
+        const mainFolder = document.querySelector('.main-folder');
+        const subfolders = document.querySelectorAll('.subfolder');
+        
+        subfolders.forEach((folder, index) => {
+            folder.style.opacity = '0';
+            folder.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                folder.style.transition = 'all 0.4s ease';
+                folder.style.opacity = '1';
+                folder.style.transform = 'translateX(0)';
+            }, index * 150);
+        });
+    }
+    
+    // Efectos de hover en archivos flotantes
+    floatingFiles.forEach(file => {
+        file.addEventListener('mouseenter', function() {
+            this.style.transform += ' rotate(5deg)';
+            this.style.zIndex = '10';
+        });
+        
+        file.addEventListener('mouseleave', function() {
+            this.style.transform = this.style.transform.replace(' rotate(5deg)', '');
+            this.style.zIndex = '1';
+        });
+    });
+}
+
+function initDeliveryMethods() {
+    const methodCards = document.querySelectorAll('.method-card');
+    
+    methodCards.forEach(card => {
+        // Efectos de parallax en patterns de fondo
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const pattern = this.querySelector('.whatsapp-pattern, .cloud-pattern');
+            if (pattern) {
+                const moveX = (x - rect.width / 2) * 0.1;
+                const moveY = (y - rect.height / 2) * 0.1;
+                pattern.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const pattern = this.querySelector('.whatsapp-pattern, .cloud-pattern');
+            if (pattern) {
+                pattern.style.transform = 'translate(0px, 0px)';
+            }
+        });
+    });
+}
+
+function initMaterialTypesReveal() {
+    const materialTypes = document.querySelectorAll('.material-type[data-reveal="zoom-in"]');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = parseInt(entry.target.dataset.delay) || 0;
+                setTimeout(() => {
+                    entry.target.style.animation = 'reveal-zoom-in 0.8s ease-out forwards';
+                }, delay);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    materialTypes.forEach(type => observer.observe(type));
+}
+
+function initCodePreview() {
+    const codeEditor = document.querySelector('.code-editor');
+    
+    if (codeEditor) {
+        // Efecto de typing en el código
+        const codeLines = document.querySelectorAll('.code-line');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    codeLines.forEach((line, index) => {
+                        line.style.opacity = '0';
+                        setTimeout(() => {
+                            line.style.transition = 'opacity 0.5s ease';
+                            line.style.opacity = '1';
+                        }, index * 300);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        observer.observe(codeEditor);
+    }
+}
+
+// ========================================
+// UTILIDADES GENERALES
+// ========================================
+
+// Función para crear efectos de partículas específicos de página
+function createPageSpecificParticles(pageType) {
+    const particleContainer = document.querySelector('.background-animation');
+    if (!particleContainer) return;
+    
+    const colors = {
+        'horarios': ['#25d366', '#0078d4'],
+        'metodologia': ['#51cf66', '#667eea'],
+        'clases': ['#667eea', '#ff6b6b', '#8b5cf6'],
+        'materiales': ['#8b5cf6', '#3b82f6']
+    };
+    
+    const pageColors = colors[pageType] || ['#e91e63', '#00d4ff'];
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle page-specific';
+        
+        const size = Math.random() * 3 + 2;
+        const color = pageColors[Math.floor(Math.random() * pageColors.length)];
+        
+        particle.style.cssText = `
+            left: ${Math.random() * 100}%;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${color};
+            opacity: ${Math.random() * 0.6 + 0.2};
+        `;
+        
+        particleContainer.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.remove();
+            }
+        }, 8000);
+    }
+    
+    // Crear partículas periódicamente
+    setInterval(createParticle, 2000);
+}
+
+// Mejorar accesibilidad para las nuevas páginas
+function initAccessibilityEnhancements() {
+    // Añadir skip links para navegación rápida
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main-content';
+    skipLink.textContent = 'Saltar al contenido principal';
+    skipLink.className = 'skip-link';
+    skipLink.style.cssText = `
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: #fff;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 9999;
+        transition: top 0.3s;
+    `;
+    
+    skipLink.addEventListener('focus', () => {
+        skipLink.style.top = '6px';
+    });
+    
+    skipLink.addEventListener('blur', () => {
+        skipLink.style.top = '-40px';
+    });
+    
+    document.body.insertBefore(skipLink, document.body.firstChild);
+    
+    // Mejorar navegación por teclado en cards interactivas
+    const interactiveCards = document.querySelectorAll('.subject-card, .method-card, .material-type, .professor-card');
+    
+    interactiveCards.forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+        
+        card.addEventListener('focus', () => {
+            card.style.outline = '2px solid #e91e63';
+            card.style.outlineOffset = '4px';
+        });
+        
+        card.addEventListener('blur', () => {
+            card.style.outline = 'none';
+        });
+    });
+}
+
+// Inicializar mejoras de accesibilidad
+document.addEventListener('DOMContentLoaded', initAccessibilityEnhancements);

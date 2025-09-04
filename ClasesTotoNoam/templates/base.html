@@ -82,51 +82,51 @@
             </div>
         </div>
         
-        <nav role="navigation" aria-label="Navegación principal">
-            <ul class="sidebar-nav">
-                <li>
-                    <a href="{% url 'core:home' %}" 
-                       class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                       aria-label="Ir a página de inicio">
-                        <i class="fas fa-home" aria-hidden="true"></i>
-                        <span>Inicio</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:clases' %}" 
-                       class="{% if request.resolver_match.url_name == 'clases' %}active{% endif %}"
-                       aria-label="Gestionar clases">
-                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
-                        <span>Materias</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:estudiantes' %}" 
-                       class="{% if request.resolver_match.url_name == 'estudiantes' %}active{% endif %}"
-                       aria-label="Mostrar metodología">
-                        <i class="fas fa-users" aria-hidden="true"></i>
-                        <span>Metodología</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:horarios' %}" 
-                       class="{% if request.resolver_match.url_name == 'horarios' %}active{% endif %}"
-                       aria-label="Ver horarios y calendario">
-                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                        <span>Reserva tu horario</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'core:materiales' %}" 
-                       class="{% if request.resolver_match.url_name == 'materiales' %}active{% endif %}"
-                       aria-label="Gestionar materiales educativos">
-                        <i class="fas fa-book" aria-hidden="true"></i>
-                        <span>Materiales</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        
+        <!-- Buscar esta sección en base.html y REEMPLAZARLA completamente -->
+            <nav role="navigation" aria-label="Navegación principal">
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="{% url 'core:home' %}" 
+                        class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                        aria-label="Ir a página de inicio">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:horarios' %}" 
+                        class="{% if request.resolver_match.url_name == 'horarios' %}active{% endif %}"
+                        aria-label="Reservar horario de clase">
+                            <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+                            <span>Reserva tu Horario</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:metodologia' %}" 
+                        class="{% if request.resolver_match.url_name == 'metodologia' %}active{% endif %}"
+                        aria-label="Ver metodología de enseñanza">
+                            <i class="fas fa-book-reader" aria-hidden="true"></i>
+                            <span>Metodología</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:clases' %}" 
+                        class="{% if request.resolver_match.url_name == 'clases' %}active{% endif %}"
+                        aria-label="Ver especialidades disponibles">
+                            <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                            <span>Clases</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:materiales' %}" 
+                        class="{% if request.resolver_match.url_name == 'materiales' %}active{% endif %}"
+                        aria-label="Acceder a materiales de estudio">
+                            <i class="fas fa-folder-open" aria-hidden="true"></i>
+                            <span>Materiales</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         <!-- Información de contacto en el sidebar -->
         <div style="position: absolute; bottom: 30px; left: 30px; right: 30px; text-align: center;">
             <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; backdrop-filter: blur(10px);">

@@ -1,3 +1,4 @@
+# En ClasesTotoNoam/core/urls.py
 from django.urls import path
 from . import views
 
@@ -9,6 +10,7 @@ urlpatterns = [
     path('estudiantes/', views.estudiantes, name='estudiantes'),
     path('horarios/', views.horarios, name='horarios'),
     path('materiales/', views.materiales, name='materiales'),
+    path('metodologia/', views.metodologia, name='metodologia'),
     path('evaluaciones/', views.evaluaciones, name='evaluaciones'),
     path('reportes/', views.reportes, name='reportes'),
     path('configuracion/', views.configuracion, name='configuracion'),
