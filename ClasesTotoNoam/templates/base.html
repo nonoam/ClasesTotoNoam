@@ -3,80 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}ClasesTotoNoam{% endblock %}</title>
+    <meta name="description" content="ClasesTotoNoam - Plataforma integral para gestión educativa profesional">
+    <meta name="keywords" content="clases particulares, educación, matemáticas, programación, física, cálculo">
+    <meta name="author" content="ClasesTotoNoam">
     
-    <!-- CSS -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}ClasesTotoNoam - Plataforma Educativa{% endblock %}">
+    <meta property="og:description" content="Tu plataforma integral para la gestión educativa profesional">
+    
+    <title>{% block title %}ClasesTotoNoam - Plataforma Educativa{% endblock %}</title>
+    
+    <!-- Preconnect para optimizar carga de fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- CSS Principal -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter y JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    
+    <!-- CSS adicional de páginas específicas -->
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Meta tags adicionales -->
+    <meta name="theme-color" content="#e91e63">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-    <!-- Animación de fondo -->
-    <div class="background-animation">
-        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 0.5s;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
+    <!-- Preloader (opcional) -->
+    <div id="preloader" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+    ">
+        <div style="
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(233, 30, 99, 0.3);
+            border-top: 3px solid #e91e63;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        "></div>
     </div>
 
-    <!-- Sidebar transparente -->
-    <div class="sidebar">
+    <!-- Sistema de partículas de fondo mejorado -->
+    <div class="background-animation">
+        <!-- Las partículas se crean dinámicamente con JavaScript -->
+    </div>
+
+    <!-- Sidebar profesional -->
+    <aside class="sidebar">
         <div class="sidebar-logo">
             <h2>ClasesTotoNoam</h2>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 5px;">
+                Plataforma Educativa
+            </div>
         </div>
-        <nav>
+        
+        <nav role="navigation" aria-label="Navegación principal">
             <ul class="sidebar-nav">
                 <li>
-                    <a href="{% url 'core:home' %}" class="active">
-                        <i class="fas fa-home"></i>
-                        Inicio
+                    <a href="{% url 'core:home' %}" 
+                       class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                       aria-label="Ir a página de inicio">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span>Inicio</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'core:clases' %}">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        Clases
+                    <a href="{% url 'core:clases' %}" 
+                       class="{% if request.resolver_match.url_name == 'clases' %}active{% endif %}"
+                       aria-label="Gestionar clases">
+                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                        <span>Clases</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'core:estudiantes' %}">
-                        <i class="fas fa-users"></i>
-                        Estudiantes
+                    <a href="{% url 'core:estudiantes' %}" 
+                       class="{% if request.resolver_match.url_name == 'estudiantes' %}active{% endif %}"
+                       aria-label="Gestionar estudiantes">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>Estudiantes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'core:horarios' %}">
-                        <i class="fas fa-calendar-alt"></i>
-                        Horarios
+                    <a href="{% url 'core:horarios' %}" 
+                       class="{% if request.resolver_match.url_name == 'horarios' %}active{% endif %}"
+                       aria-label="Ver horarios y calendario">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        <span>Horarios</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'core:materiales' %}">
-                        <i class="fas fa-book"></i>
-                        Materiales
+                    <a href="{% url 'core:materiales' %}" 
+                       class="{% if request.resolver_match.url_name == 'materiales' %}active{% endif %}"
+                       aria-label="Gestionar materiales educativos">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                        <span>Materiales</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:evaluaciones' %}" 
+                       class="{% if request.resolver_match.url_name == 'evaluaciones' %}active{% endif %}"
+                       aria-label="Crear y gestionar evaluaciones">
+                        <i class="fas fa-clipboard-check" aria-hidden="true"></i>
+                        <span>Evaluaciones</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:reportes' %}" 
+                       class="{% if request.resolver_match.url_name == 'reportes' %}active{% endif %}"
+                       aria-label="Ver reportes y estadísticas">
+                        <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:configuracion' %}" 
+                       class="{% if request.resolver_match.url_name == 'configuracion' %}active{% endif %}"
+                       aria-label="Configuración del sistema">
+                        <i class="fas fa-cog" aria-hidden="true"></i>
+                        <span>Configuración</span>
                     </a>
                 </li>
             </ul>
         </nav>
-    </div>
+        
+        <!-- Información de contacto en el sidebar -->
+        <div style="position: absolute; bottom: 30px; left: 30px; right: 30px; text-align: center;">
+            <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; backdrop-filter: blur(10px);">
+                <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 10px;">
+                    <i class="fas fa-phone" style="margin-right: 8px;"></i>
+                    +56 9 6144 6847
+                </div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.6);">
+                    <i class="fab fa-instagram" style="margin-right: 8px;"></i>
+                    @a_escobar__ @noamsito.o
+                </div>
+            </div>
+        </div>
+    </aside>
 
     <!-- Contenido principal -->
-    <main class="main-content">
+    <main class="main-content" role="main">
         {% block content %}
+        <!-- El contenido de cada página se insertará aquí -->
         {% endblock %}
     </main>
 
-    <!-- JavaScript -->
+    <!-- JavaScript principal -->
     <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- JavaScript adicional de páginas específicas -->
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Scripts de animación CSS -->
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Ocultar preloader después de cargar */
+        .loaded #preloader {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+    
+    <!-- Script para manejar el preloader -->
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+                setTimeout(function() {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.remove();
+                    }
+                }, 500);
+            }, 300);
+        });
+        
+        // Fallback para ocultar preloader si tarda mucho
+        setTimeout(function() {
+            document.body.classList.add('loaded');
+        }, 3000);
+    </script>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "ClasesTotoNoam",
+        "description": "Plataforma integral para gestión educativa y clases particulares",
+        "url": "{{ request.build_absolute_uri }}",
+        "sameAs": [
+            "https://instagram.com/a_escobar__",
+            "https://instagram.com/noamsito.o"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+56-9-6144-6847",
+            "contactType": "customer service"
+        }
+    }
+    </script>
 </body>
 </html>

@@ -1,98 +1,233 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Inicio - ClasesTotoNoam{% endblock %}
+{% block title %}ClasesTotoNoam - Plataforma Educativa{% endblock %}
 
 {% block content %}
-<!-- Header principal -->
-<div class="header">
-    <h1>¡Bienvenido a ClasesTotoNoam!</h1>
-    <p>Tu plataforma integral para la gestión de clases y estudiantes. Organiza, planifica y da seguimiento a tu proceso educativo de manera eficiente.</p>
-</div>
-
-<!-- Container de cards principales -->
-<div class="cards-container">
-    <!-- Card 1: Clases -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-chalkboard-teacher"></i>
+<!-- Hero Section Principal -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">
+                <span class="gradient-text">CLASES</span>
+                <span class="white-text">PARTICULARES</span>
+            </h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">Tu plataforma integral para la gestión educativa profesional</p>
+            <div class="hero-features">
+                <span class="feature-tag">PROGRAMACIÓN</span>
+                <span class="feature-tag">MATEMÁTICAS</span>
+                <span class="feature-tag">FÍSICA</span>
+                <span class="feature-tag">CÁLCULO</span>
+            </div>
+            <div class="hero-actions">
+                <a href="{% url 'core:clases' %}" class="btn-primary">Comenzar Ahora</a>
+                <a href="{% url 'core:estudiantes' %}" class="btn-secondary">Ver Demo</a>
+            </div>
         </div>
-        <h3>Gestión de Clases</h3>
-        <p>Organiza y administra todas tus clases de manera eficiente. Crea horarios, asigna estudiantes y lleva un control detallado de cada sesión.</p>
-        <a href="{% url 'core:clases' %}" class="btn">Ver Clases</a>
-    </div>
-
-    <!-- Card 2: Estudiantes -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-users"></i>
-        </div>
-        <h3>Estudiantes</h3>
-        <p>Administra la información de tus estudiantes, lleva un registro de su progreso y mantén una comunicación efectiva con cada uno de ellos.</p>
-        <a href="{% url 'core:estudiantes' %}" class="btn">Gestionar Estudiantes</a>
-    </div>
-
-    <!-- Card 3: Horarios -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-calendar-alt"></i>
-        </div>
-        <h3>Planificación</h3>
-        <p>Crea y gestiona horarios de clases, programa actividades y mantén un calendario organizado para optimizar tu tiempo y recursos.</p>
-        <a href="{% url 'core:horarios' %}" class="btn">Ver Calendario</a>
-    </div>
-
-    <!-- Card 4: Materiales -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-book"></i>
-        </div>
-        <h3>Recursos Educativos</h3>
-        <p>Almacena y organiza todos tus materiales de enseñanza. Comparte recursos con tus estudiantes y mantén todo en un lugar accesible.</p>
-        <a href="{% url 'core:materiales' %}" class="btn">Explorar Recursos</a>
-    </div>
-
-    <!-- Card 5: Evaluaciones -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-clipboard-check"></i>
-        </div>
-        <h3>Evaluaciones</h3>
-        <p>Crea exámenes, tareas y evaluaciones. Lleva un seguimiento del rendimiento académico y genera reportes detallados de progreso.</p>
-        <a href="{% url 'core:evaluaciones' %}" class="btn">Crear Evaluación</a>
-    </div>
-
-    <!-- Card 6: Reportes -->
-    <div class="card">
-        <div class="card-icon">
-            <i class="fas fa-chart-bar"></i>
-        </div>
-        <h3>Análisis y Reportes</h3>
-        <p>Visualiza estadísticas detalladas, genera reportes de rendimiento y obtén insights valiosos sobre el progreso de tus clases.</p>
-        <a href="{% url 'core:reportes' %}" class="btn">Ver Estadísticas</a>
-    </div>
-</div>
-
-<!-- Sección adicional de estadísticas rápidas -->
-<div class="header" style="background: rgba(255, 255, 255, 0.05);">
-    <h2 style="font-size: 28px; margin-bottom: 20px;">Resumen Rápido</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-        <div style="text-align: center;">
-            <div style="font-size: 36px; font-weight: bold; color: #fff; margin-bottom: 5px;">24</div>
-            <div style="color: rgba(255, 255, 255, 0.8);">Clases Activas</div>
-        </div>
-        <div style="text-align: center;">
-            <div style="font-size: 36px; font-weight: bold; color: #fff; margin-bottom: 5px;">156</div>
-            <div style="color: rgba(255, 255, 255, 0.8);">Estudiantes</div>
-        </div>
-        <div style="text-align: center;">
-            <div style="font-size: 36px; font-weight: bold; color: #fff; margin-bottom: 5px;">89%</div>
-            <div style="color: rgba(255, 255, 255, 0.8);">Asistencia Promedio</div>
-        </div>
-        <div style="text-align: center;">
-            <div style="font-size: 36px; font-weight: bold; color: #fff; margin-bottom: 5px;">12</div>
-            <div style="color: rgba(255, 255, 255, 0.8);">Evaluaciones Pendientes</div>
+        <div class="hero-visual">
+            <div class="hexagon-container">
+                <div class="hexagon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+            </div>
+            <div class="floating-elements">
+                <div class="float-icon" style="top: 20%; left: 10%;">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="float-icon" style="top: 60%; right: 15%;">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="float-icon" style="bottom: 20%; left: 20%;">
+                    <i class="fas fa-atom"></i>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Estadísticas Destacadas -->
+<section class="stats-section">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number" data-target="24">0</div>
+            <div class="stat-label">Clases Activas</div>
+            <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="156">0</div>
+            <div class="stat-label">Estudiantes</div>
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="89">0</div>
+            <div class="stat-label">% Satisfacción</div>
+            <div class="stat-icon"><i class="fas fa-star"></i></div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="12">0</div>
+            <div class="stat-label">Evaluaciones</div>
+            <div class="stat-icon"><i class="fas fa-clipboard-check"></i></div>
+        </div>
+    </div>
+</section>
+
+<!-- Servicios Principales -->
+<section class="services-section">
+    <div class="section-header">
+        <h2 class="section-title">Nuestros <span class="gradient-text">Servicios</span></h2>
+        <p class="section-subtitle">Herramientas profesionales para una educación de calidad</p>
+    </div>
+
+    <div class="services-grid">
+        <!-- Card 1: Gestión de Clases -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-header">
+                <div class="card-icon gradient-bg">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="card-badge">Premium</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Gestión de Clases</h3>
+                <p class="card-description">Organiza y administra todas tus clases con herramientas avanzadas de planificación y seguimiento.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Horarios personalizables</li>
+                    <li><i class="fas fa-check"></i>Control de asistencia</li>
+                    <li><i class="fas fa-check"></i>Recursos digitales</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:clases' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card 2: Estudiantes -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-header">
+                <div class="card-icon gradient-bg-alt">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-badge">Esencial</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Gestión de Estudiantes</h3>
+                <p class="card-description">Administra perfiles completos, progreso académico y comunicación efectiva con cada estudiante.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Perfiles detallados</li>
+                    <li><i class="fas fa-check"></i>Seguimiento de progreso</li>
+                    <li><i class="fas fa-check"></i>Comunicación directa</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:estudiantes' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card 3: Planificación -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-header">
+                <div class="card-icon gradient-bg-purple">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-badge">Popular</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Planificación Avanzada</h3>
+                <p class="card-description">Calendarios inteligentes, programación automática y optimización de tiempo y recursos.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Calendario inteligente</li>
+                    <li><i class="fas fa-check"></i>Recordatorios automáticos</li>
+                    <li><i class="fas fa-check"></i>Sincronización multi-dispositivo</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:horarios' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card 4: Recursos -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="card-header">
+                <div class="card-icon gradient-bg-green">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="card-badge">Nuevo</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Biblioteca Digital</h3>
+                <p class="card-description">Almacenamiento en la nube, organización inteligente y acceso instantáneo a todos tus materiales.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Almacenamiento ilimitado</li>
+                    <li><i class="fas fa-check"></i>Búsqueda avanzada</li>
+                    <li><i class="fas fa-check"></i>Compartir recursos</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:materiales' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card 5: Evaluaciones -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="card-header">
+                <div class="card-icon gradient-bg-orange">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="card-badge">Pro</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Sistema de Evaluación</h3>
+                <p class="card-description">Creación de exámenes, corrección automática y análisis detallado de resultados académicos.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Exámenes personalizados</li>
+                    <li><i class="fas fa-check"></i>Corrección automática</li>
+                    <li><i class="fas fa-check"></i>Analytics avanzados</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:evaluaciones' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card 6: Reportes -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="card-header">
+                <div class="card-icon gradient-bg-blue">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="card-badge">Analytics</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Reportes Inteligentes</h3>
+                <p class="card-description">Visualización de datos, métricas de rendimiento y reportes automáticos para toma de decisiones.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i>Dashboards interactivos</li>
+                    <li><i class="fas fa-check"></i>Reportes automáticos</li>
+                    <li><i class="fas fa-check"></i>Exportar datos</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'core:reportes' %}" class="card-btn">Explorar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="cta-content">
+        <div class="cta-text">
+            <h2>¿Listo para revolucionar tu enseñanza?</h2>
+            <p>Únete a más de 1,000 educadores que ya confían en ClasesTotoNoam</p>
+        </div>
+        <div class="cta-actions">
+            <a href="{% url 'core:configuracion' %}" class="btn-cta-primary">Comenzar Gratis</a>
+            <div class="cta-info">
+                <span class="cta-price">$25.000 <small>individual</small></span>
+                <span class="cta-price">$10.000 <small>grupal (mín. 3)</small></span>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
